@@ -1,2 +1,2 @@
 # FlyPortal
-Your portal to the cheapest flights
+Your portal to the most luxury and fast flights
