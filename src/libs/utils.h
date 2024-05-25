@@ -32,6 +32,7 @@ typedef struct suggested_flights{
 } suggested_flights;
 
 typedef struct user{
+    int uid;
     char *name;
     char *email;
     char *password;
