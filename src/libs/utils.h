@@ -47,4 +47,7 @@ typedef struct user{
     struct flight_node *flights;
     struct user *next;
 } user;
+
 void registerUser(int uid, char *name, char *email, char *password, char *phone, char *address,  char *city, char *state, char *zip,char *country);
+
+int parse_file(const char *filename);

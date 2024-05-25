@@ -1,0 +1,2 @@
+- R 1 alex alex@csd.uoc 123 6969 19hsMaiou katerini pieria 60100 greece 
+– A <mid> <company> <cost> <departure time> <arrival time> <arrival location> <departure loc>
