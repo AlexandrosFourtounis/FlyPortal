@@ -47,3 +47,6 @@ typedef struct user{
     struct flight_node *flights;
     struct user *next;
 } user;
+
+
+int parse_file(const char *filename);
