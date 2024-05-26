@@ -11,13 +11,10 @@ int main(int argc, char **argv){
     }
 
     const char *filename = argv[1];
-    registerUser(123, "Stelios", "Stelios", "Stelios", "Stelios", "Stelios", "Stelios", "Stelios", "Stelios", "Stelios");
-    // if(parse_file(filename) == -1){
-    //     fprintf(stderr, "Error parsing file\n");
-    //     return -1;
-    // }
-    registerUser(123, "alex", "Stelios", "Stelios", "Stelios", "Stelios", "Stelios", "Stelios", "Stelios", "Stelios");
-
+    if(parse_file(filename) == -1){
+        fprintf(stderr, "Error parsing file\n");
+        return -1;
+    }
     print_users();
 
     return 0;
