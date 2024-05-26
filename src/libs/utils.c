@@ -42,7 +42,7 @@ void registerUser(int uid, char *name, char *email, char *password, char *phone,
     newUser->flights = NULL;
     newUser->next = NULL;
 
-    // Add the new user to the linked list
+    
     if (users == NULL) {
         users = newUser;
     } else {
