@@ -64,14 +64,6 @@ int print_users(){
     }
 }
 
-int print_users(){
-    printf("Printing users\n");
-    user *current = users;
-    while(current != NULL){
-        printf("Name: %s\n", current->name);
-        current = current->next;
-    }
-}
 
 int parse_file(const char *filename)
 {
@@ -102,7 +94,7 @@ int parse_file(const char *filename)
             registerUser(id, name, email, password, telephone, address, city, state, zip, country);
         }
         else
-            printf("what?");
+            printf("what?\n");
     }
 
     fclose(file);
