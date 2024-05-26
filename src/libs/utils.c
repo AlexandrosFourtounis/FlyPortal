@@ -7,14 +7,26 @@
 user *users = NULL;
 
 
-void registerUser(int uid, char *name, char *email, char *password, char *phone, char *address,  char *city, char *state, char *zip,char *country){
 
+void registerUser(int uid, char *name, char *email, char *password, char *phone, char *address,  char *city, char *state, char *zip,char *country){
+    //check if user with the samn uid already exists
+    user *current = users;
+    while (current != NULL) {
+        if (uid == current->uid) {
+            printf("User with UID %d already exists\n", uid);
+            return;
+        }
+        current = current->next;
+    }
+
+    // Create a new user
     user *newUser = (user *)malloc(sizeof(user));
     if (newUser == NULL) {
-        fprintf(stderr,"Memory allocation failed\n");
+        fprintf(stderr, "Memory allocation failed\n");
         exit(EXIT_FAILURE);
     }
 
+    
     newUser->uid = uid;
     newUser->name = strdup(name);
     newUser->email = strdup(email);
@@ -30,18 +42,18 @@ void registerUser(int uid, char *name, char *email, char *password, char *phone,
     newUser->flights = NULL;
     newUser->next = NULL;
 
-
-    if(users == NULL){
+    // Add the new user to the linked list
+    if (users == NULL) {
         users = newUser;
-    }else{
-        user *current = users;
-        while(current->next != NULL){
-            current = current->next;
+    } else {
+        user *temp = users;
+        while (temp->next != NULL) {
+            temp = temp->next;
         }
-        current->next = newUser;
+        temp->next = newUser;
     }
- 
 }
+
 
 int print_users(){
     printf("Printing users\n");
