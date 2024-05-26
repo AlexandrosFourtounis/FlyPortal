@@ -24,8 +24,14 @@ char* safe_strdup(const char *str) {
 }
 
 void registerUser(int uid, char *name, char *email, char *password, char *phone, char *address, char *city, char *state, char *zip, char *country) {
-    // Check if user with the same uid already exists
+    if (uid < 0 || !name || !email || !password || !phone || !address || !city || !state || !zip || !country) {
+        fprintf(stderr, "Invalid input or NULL values\n");
+        exit(EXIT_FAILURE);
+    }
+
     user *current = users;
+
+    // Check for duplicate uid
     while (current != NULL) {
         if (uid == current->uid) {
             printf("User with uid %d already exists\n", uid);
@@ -34,7 +40,7 @@ void registerUser(int uid, char *name, char *email, char *password, char *phone,
         current = current->next;
     }
 
-    // Create a new user
+    
     user *newUser = (user *)malloc(sizeof(user));
     if (newUser == NULL) {
         fprintf(stderr, "Memory allocation failed\n");
@@ -59,11 +65,11 @@ void registerUser(int uid, char *name, char *email, char *password, char *phone,
     if (users == NULL) {
         users = newUser;
     } else {
-        user *temp = users;
-        while (temp->next != NULL) {
-            temp = temp->next;
+        current = users;
+        while (current->next != NULL) {
+            current = current->next;
         }
-        temp->next = newUser;
+        current->next = newUser;
     }
 }
 
@@ -97,19 +103,36 @@ void deleteUser(int uid, char *name) {
     printf("User with uid %d does not exist\n", uid);
 }
 
-int print_users(){
+int print_users() {
     printf("Printing users\n");
     user *current = users;
-    while(current != NULL){
+    int all_users = 0;
+    while (current != NULL) {
+        printf("UID: %d\n", current->uid);
         printf("Name: %s\n", current->name);
+        printf("Email: %s\n", current->email);
+        printf("Password: %s\n", current->password);
+        printf("Phone: %s\n", current->phone);
+        printf("Address: %s\n", current->address);
+        printf("City: %s\n", current->city);
+        printf("State: %s\n", current->state);
+        printf("Zip: %s\n", current->zip);
+        printf("Country: %s\n", current->country);
+        printf("\n");
         current = current->next;
+        all_users = all_users + 1;
     }
+    return all_users;
 }
 
 flight_node *flights_head = NULL;
 
 void insert_flight_schedule(airlines_t airline, char *flight_number, char *departure, char *arrival, char *departure_time, char *arrival_time, char *price) {
-   
+    if(!airline || !flight_number || !departure || !arrival || !departure_time || !arrival_time || !price ){
+        fprintf(stderr,"airline, flight_number, departure, arrival, departure_time, arrival_time, price CANNOT BE NULL\n");
+        exit(EXIT_FAILURE);
+
+    }
     flight_info *newFlight = (flight_info *)malloc(sizeof(flight_info));
     if (newFlight == NULL) {
         fprintf(stderr, "Memory allocation failed\n");
