@@ -14,8 +14,11 @@ int main(int argc, char **argv){
     deleteUser(3,"Alex");
     registerUser(3,"Alex",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
     deleteUser(3,"Alex");
+    
+    printf("\n");
     insert_flight_schedule(1, "12abc", "katerini", "dubai", "12", "6", "500$\n");
     print_flights();
+    print_users();
     
 
 
@@ -26,7 +29,7 @@ int main(int argc, char **argv){
         return -1;
     }
     
-    print_users();
+   
 
     return 0;
 

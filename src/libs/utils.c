@@ -28,7 +28,7 @@ void registerUser(int uid, char *name, char *email, char *password, char *phone,
     user *current = users;
     while (current != NULL) {
         if (uid == current->uid) {
-            printf("User with UID %d already exists\n", uid);
+            printf("User with uid %d already exists\n", uid);
             return;
         }
         current = current->next;
