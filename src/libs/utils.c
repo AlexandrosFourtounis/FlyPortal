@@ -9,17 +9,13 @@ user *users = NULL;
 
 void registerUser(int uid, char *name, char *email, char *password, char *phone, char *address,  char *city, char *state, char *zip,char *country){
 
-   
-    user* newUser = (user*)malloc(sizeof(user));
-    
-
+    user *newUser = (user *)malloc(sizeof(user));
     if (newUser == NULL) {
-        printf("Memory allocation failed\n");
-        return NULL;
+        fprintf(stderr,"Memory allocation failed\n");
+        exit(EXIT_FAILURE);
     }
 
     newUser->uid = uid;
-
     newUser->name = strdup(name);
     newUser->email = strdup(email);
     newUser->password = strdup(password);
@@ -29,12 +25,32 @@ void registerUser(int uid, char *name, char *email, char *password, char *phone,
     newUser->state = strdup(state);
     newUser->zip = strdup(zip);
     newUser->country = strdup(country);
-       
- 
+    newUser->flights_head = NULL;
+    newUser->flights_tail = NULL;
+    newUser->flights = NULL;
+    newUser->next = NULL;
+
+
+    if(users == NULL){
+        users = newUser;
+    }else{
+        user *current = users;
+        while(current->next != NULL){
+            current = current->next;
+        }
+        current->next = newUser;
+    }
  
 }
 
-
+int print_users(){
+    printf("Printing users\n");
+    user *current = users;
+    while(current != NULL){
+        printf("Name: %s\n", current->name);
+        current = current->next;
+    }
+}
 
 int parse_file(const char *filename)
 {
