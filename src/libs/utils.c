@@ -54,6 +54,37 @@ void registerUser(int uid, char *name, char *email, char *password, char *phone,
     }
 }
 
+void deleteUser(int uid, char *name){
+    
+    user *current = users;
+    user *prev = NULL; 
+    //check if the user exists or you are trolling
+    while (current != NULL) {
+        if (uid == current->uid) {
+            if (prev == NULL) {
+                users = current->next;
+            } else {
+                prev->next = current->next;
+            }
+            
+            free(current->name);
+            free(current->email);
+            free(current->password);
+            free(current->phone);
+            free(current->address);
+            free(current->city);
+            free(current->state);
+            free(current->zip);
+            free(current->country);
+            free(current);
+            printf("User %c with uid %i erased\n",*name, uid);
+            return;
+        }
+        prev = current;
+        current = current->next;
+    }
+    printf("User with uid %i does not exist\n", uid);
+}
 
 int print_users(){
     printf("Printing users\n");
