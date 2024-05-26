@@ -7,14 +7,26 @@
 user *users = NULL;
 
 
-void registerUser(int uid, char *name, char *email, char *password, char *phone, char *address,  char *city, char *state, char *zip,char *country){
 
+void registerUser(int uid, char *name, char *email, char *password, char *phone, char *address,  char *city, char *state, char *zip,char *country){
+    //check if user with the samn uid already exists
+    user *current = users;
+    while (current != NULL) {
+        if (uid == current->uid) {
+            printf("User with UID %d already exists\n", uid);
+            return;
+        }
+        current = current->next;
+    }
+
+    // Create a new user
     user *newUser = (user *)malloc(sizeof(user));
     if (newUser == NULL) {
-        fprintf(stderr,"Memory allocation failed\n");
+        fprintf(stderr, "Memory allocation failed\n");
         exit(EXIT_FAILURE);
     }
 
+    
     newUser->uid = uid;
     newUser->name = strdup(name);
     newUser->email = strdup(email);
@@ -30,17 +42,48 @@ void registerUser(int uid, char *name, char *email, char *password, char *phone,
     newUser->flights = NULL;
     newUser->next = NULL;
 
-
-    if(users == NULL){
+    
+    if (users == NULL) {
         users = newUser;
-    }else{
-        user *current = users;
-        while(current->next != NULL){
-            current = current->next;
+    } else {
+        user *temp = users;
+        while (temp->next != NULL) {
+            temp = temp->next;
         }
-        current->next = newUser;
+        temp->next = newUser;
     }
- 
+}
+
+void deleteUser(int uid, char *name){
+    
+    user *current = users;
+    user *prev = NULL; 
+    //check if the user exists or you are trolling
+    while (current != NULL) {
+        if (uid == current->uid) {
+            if (prev == NULL) {
+                users = current->next;
+            } else {
+                prev->next = current->next;
+            }
+            
+            free(current->name);
+            free(current->email);
+            free(current->password);
+            free(current->phone);
+            free(current->address);
+            free(current->city);
+            free(current->state);
+            free(current->zip);
+            free(current->country);
+            free(current);
+            printf("User %c with uid %i erased\n",*name, uid);
+            return;
+        }
+        prev = current;
+        current = current->next;
+    }
+    printf("User with uid %i does not exist\n", uid);
 }
 
 int print_users(){
@@ -51,6 +94,7 @@ int print_users(){
         current = current->next;
     }
 }
+
 
 int parse_file(const char *filename)
 {
@@ -81,10 +125,9 @@ int parse_file(const char *filename)
             registerUser(id, name, email, password, telephone, address, city, state, zip, country);
         }
         else
-            printf("what?");
+            printf("what?\n");
     }
 
     fclose(file);
     return 0;
 }
-
