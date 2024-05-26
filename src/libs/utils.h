@@ -53,3 +53,4 @@ void registerUser(int uid, char *name, char *email, char *password, char *phone,
 int parse_file(const char *filename);
 
 int print_users();
+void deleteUsers(int uid, char *name);
