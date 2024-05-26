@@ -50,6 +50,7 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
-launch.jsonson
 .vscode/c_cpp_properties.json
+.vscode/launch.json
 .vscode/settings.json
+.vcscode/
