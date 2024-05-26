@@ -9,12 +9,26 @@ flight_info *flights =NULL;
 
 
 
-void registerUser(int uid, char *name, char *email, char *password, char *phone, char *address,  char *city, char *state, char *zip,char *country){
-    //check if user with the samn uid already exists
+void safe_free(void *ptr) {
+    if (ptr) {
+        free(ptr);
+    }
+}
+
+// Helper function to safely duplicate strings
+char* safe_strdup(const char *str) {
+    if (str) {
+        return strdup(str);
+    }
+    return NULL;
+}
+
+void registerUser(int uid, char *name, char *email, char *password, char *phone, char *address, char *city, char *state, char *zip, char *country) {
+    // Check if user with the same uid already exists
     user *current = users;
     while (current != NULL) {
         if (uid == current->uid) {
-            printf("User with uid %d already exists\n", uid);
+            printf("User with UID %d already exists\n", uid);
             return;
         }
         current = current->next;
@@ -27,23 +41,21 @@ void registerUser(int uid, char *name, char *email, char *password, char *phone,
         exit(EXIT_FAILURE);
     }
 
-    
     newUser->uid = uid;
-    newUser->name = strdup(name);
-    newUser->email = strdup(email);
-    newUser->password = strdup(password);
-    newUser->phone = strdup(phone);
-    newUser->address = strdup(address);
-    newUser->city = strdup(city);
-    newUser->state = strdup(state);
-    newUser->zip = strdup(zip);
-    newUser->country = strdup(country);
+    newUser->name = safe_strdup(name);
+    newUser->email = safe_strdup(email);
+    newUser->password = safe_strdup(password);
+    newUser->phone = safe_strdup(phone);
+    newUser->address = safe_strdup(address);
+    newUser->city = safe_strdup(city);
+    newUser->state = safe_strdup(state);
+    newUser->zip = safe_strdup(zip);
+    newUser->country = safe_strdup(country);
     newUser->flights_head = NULL;
     newUser->flights_tail = NULL;
     newUser->flights = NULL;
     newUser->next = NULL;
 
-    
     if (users == NULL) {
         users = newUser;
     } else {
@@ -55,11 +67,9 @@ void registerUser(int uid, char *name, char *email, char *password, char *phone,
     }
 }
 
-void deleteUser(int uid, char *name){
-    
+void deleteUser(int uid, char *name) {
     user *current = users;
-    user *prev = NULL; 
-    //check if the user exists or you are trolling
+    user *prev = NULL;
     while (current != NULL) {
         if (uid == current->uid) {
             if (prev == NULL) {
@@ -67,24 +77,24 @@ void deleteUser(int uid, char *name){
             } else {
                 prev->next = current->next;
             }
-            
-            free(current->name);
-            free(current->email);
-            free(current->password);
-            free(current->phone);
-            free(current->address);
-            free(current->city);
-            free(current->state);
-            free(current->zip);
-            free(current->country);
+
+            safe_free(current->name);
+            safe_free(current->email);
+            safe_free(current->password);
+            safe_free(current->phone);
+            safe_free(current->address);
+            safe_free(current->city);
+            safe_free(current->state);
+            safe_free(current->zip);
+            safe_free(current->country);
             free(current);
-            printf("User %s with uid %i erased\n", name, uid);
+            printf("User %s with uid %d erased\n", name ? name : "NULL", uid);
             return;
         }
         prev = current;
         current = current->next;
     }
-    printf("User %s with uid %i does not exist\n", name, uid);
+    printf("User with uid %d does not exist\n", uid);
 }
 
 int print_users(){
