@@ -1,2 +1,6 @@
 
-– A <mid> <company> <cost> <departure time> <arrival time> <arrival location> <departure loc>
+- R 2 john john@csd.uoc 456 7890 20hsJune athens attiki 10435 greece
+- R 3 mary mary@csd.uoc 789 1234 21hsJuly thessaloniki macedonia 54621 greece
+- R 4 peter peter@csd.uoc 123 4567 22hsAugust patras achaea 26221 greece
+- R 5 anna anna@csd.uoc 456 7890 23hsSeptember heraklion crete 71201 greece
+
