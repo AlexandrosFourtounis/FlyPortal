@@ -20,13 +20,13 @@ typedef struct flight_info{
     char *price;
 } flight_info;
 
-typedef struct flight_node{
+typedef struct flight_node {
     flight_info *flight;
     struct flight_node *next;
 } flight_node;
 
 typedef struct suggested_flights{
-    struct flight_info *info;
+    flight_info *info;
     struct flight_node *prev;
     struct flight_node *next;
 } suggested_flights;
@@ -53,3 +53,6 @@ void registerUser(int uid, char *name, char *email, char *password, char *phone,
 int parse_file(const char *filename);
 
 int print_users();
+void deleteUsers(int uid, char *name);
+void insert_flight_schedule(airlines_t airline, char *flight_number, char *departure, char *arrival, char *departure_time, char *arrival_time, char *price);
+void print_flights();
